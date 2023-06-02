@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  task-manager:
+    image: gargi08092000/task-manager-2
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:4200|| exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  

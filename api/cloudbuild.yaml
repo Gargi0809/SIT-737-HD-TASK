@@ -1,0 +1,12 @@
+steps:
+  # build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/hd-task-286212/packer:1.7.8", "."]
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=task-manager-service.yaml
+      - --filename=task-manager-deployment.yaml
+      - --image=gcr.io/hd-task-286212/packer:1.7.8
+      - --location=australia-southeast1
+      - --cluster=task-manager
